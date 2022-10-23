@@ -1,0 +1,16 @@
+version: '3'
+services:
+  dev:
+    build: .
+    command: sleep infinity
+    working_dir: /work
+    env_file:
+      - ../config/db.env
+    volumes:
+      - ../:/work:cached
+      - ~/.ssh:/root/.ssh
+  db:
+    image: mariadb:10.9.3
+    env_file:
+      - ../config/db.env
+
