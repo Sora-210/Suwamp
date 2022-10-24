@@ -1,0 +1,17 @@
+version: '3'
+services:
+  front:
+    build: ./app/
+    container_name: 'f2022-suwamp-front'
+    restart: always
+    tty: true
+    ports:
+      - 5111:80
+    env_file:
+      - ./config/db.env
+    environment:
+      BASE_URL: /suwamp/
+  db:
+    image: mariadb:10.9.3
+    env_file:
+      - ./config/db.env
