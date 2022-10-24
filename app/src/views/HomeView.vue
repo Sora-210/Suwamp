@@ -1,18 +1,76 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="title">
+      <h3 id="creater">
+        Created by <img alt="Vue logo" src="../assets/logo.png" />Suwageeks
+      </h3>
+      <h1>『SUWAMP!』</h1>
+      <h2>in 新風祭2022</h2>
+    </div>
+    <p>
+      新風祭を回ってスタンプを集めよう!
+    </p>
+    <div id="contents">
+      <div>
+        STAMPS
+      </div>
+    </div>
+
+
+    
+    
+    
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
-  }
 }
 </script>
+
+<style>
+/* TITLE DESIGN */
+#title {
+  position: relative;
+  padding: 1.5rem 2rem;
+  border-top: 4px solid #000;
+  border-bottom: 4px solid #000;
+  margin: 2vh 0;
+}
+#title:before,
+#title:after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  content: '';
+  border-top: 4px dotted #000;
+}
+#title:before {
+  top: 6px;
+}
+#title:after {
+  bottom: 6px;
+}
+#title h1 {
+  font-size: 4rem;
+}
+
+/* CREATER DESIGN */
+#creater {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#creater img {
+  width: 2rem;
+  height: 2rem;
+  padding-left: 1rem;
+}
+
+#contents {
+  padding: 3rem 2rem;
+  display: flex;
+}
+</style>

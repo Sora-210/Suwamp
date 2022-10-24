@@ -6,7 +6,7 @@
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Nico Moji";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -20,5 +20,10 @@
   overflow: hidden;
 
   position: relative;
+}
+
+.container {
+  padding: 0 2rem;
+  height: 100%;
 }
 </style>
