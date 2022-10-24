@@ -10,22 +10,22 @@
     <p>
       新風祭を回ってスタンプを集めよう!
     </p>
-    <div id="contents">
+    <my-stamps class="my-stamp"/>
+    <!-- <div id="contents">
       <div>
         STAMPS
       </div>
-    </div>
-
-
-    
-    
-    
+    </div> -->
   </div>
 </template>
 
 <script>
+import MyStamps from '@/components/MyStamps.vue'
 
 export default {
+  components: {
+    'my-stamps': MyStamps
+  },
   name: 'HomeView',
 }
 </script>
@@ -72,5 +72,13 @@ export default {
 #contents {
   padding: 3rem 2rem;
   display: flex;
+}
+
+
+p {
+  font-size: 2em;
+}
+.my-stamp {
+  padding-top: 2vh;
 }
 </style>
