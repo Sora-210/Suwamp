@@ -26,6 +26,11 @@ const routes = [
         component:() => import('@/views/QrView.vue')
       }
     ]
+  },
+  {
+    path: '*',
+    name: "Error404",
+    component: () => import('@/views/Error/404View.vue')
   }
 ]
 
