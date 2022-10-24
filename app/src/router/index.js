@@ -7,18 +7,25 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('@/views/AboutView.vue')
-  },
-  {
-    path: '/qr',
-    name: 'QrView',
-    component:() => import('@/views/QrView.vue')
+    name: 'User',
+    component: () => import("@/layouts/UserLayout.vue"),
+    children: [
+      {
+        path: '/',
+        name: 'home',
+        component: HomeView
+      },
+      {
+        path: '/about',
+        name: 'about',
+        component: () => import('@/views/AboutView.vue')
+      },
+      {
+        path: '/qr',
+        name: 'QrView',
+        component:() => import('@/views/QrView.vue')
+      }
+    ]
   }
 ]
 
