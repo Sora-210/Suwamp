@@ -1,26 +1,40 @@
 <template>
     <div>
-        <main>
-            <router-view/>
-        </main>
-        <nav>
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link> |
-            <router-link to="/qr">QR</router-link>
-        </nav>
+      <stamp-qr id="qr" class="qr" :class="{'qr-open': isQR}" @close="onQR" />
+      <main>
+          <router-view/>
+      </main>
+      <div @click="onQR" class="menu">
+          <img src="@/assets/QR.png" />
+      </div>
     </div>
 </template>
 
 <script>
+import StampQR from '@/components/StampQR.vue'
+
 export default {
     name: "UserLayout",
+    components: {
+      'stamp-qr': StampQR
+    },
+    data() {
+      return {
+        isQR: false
+      }
+    },
+    methods: {
+      onQR: function() {
+        this.isQR = !this.isQR;
+      }
+    }
 }
 </script>
 
 <style>
 main {
   overflow-y: scroll;
-  height: 93vh;
+  height: 100vh;
 }
 main::-webkit-scrollbar {
   width: 5px;
@@ -32,29 +46,34 @@ main::-webkit-scrollbar-thumb {
   background-color: #42b983;
 }
 
-nav {
-  width: 100%;
-  height: 7vh;
+.menu {
+  width: 4rem;
+  height: 4rem;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 1rem;
+  right: 1rem;
 
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-
-  border-top: solid 1px #2c3e50;
-  background-color: #fff;
+  border: solid 5px #42b983;
+  border-radius: 15px;
+  transition: all ease 0.7s;
+  cursor: pointer;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-
-  padding: 20px;
+.menu img {
+  width: 100%;
+  height: 100%;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+#qr {
+  position: absolute;
+}
+.qr {
+  z-index: 2;
+  top: -103vh;
+  transition: all ease 0.5s;
+}
+.qr-open {
+  top: 0;
+  transition: all ease 0.5s;
 }
 </style>

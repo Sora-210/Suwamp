@@ -19,11 +19,6 @@ const routes = [
         path: '/about',
         name: 'about',
         component: () => import('@/views/AboutView.vue')
-      },
-      {
-        path: '/qr',
-        name: 'QrView',
-        component:() => import('@/views/QrView.vue')
       }
     ]
   },
