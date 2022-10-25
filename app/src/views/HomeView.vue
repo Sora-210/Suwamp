@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* TITLE DESIGN */
 #title {
   position: relative;
@@ -55,6 +55,18 @@ export default {
 }
 #title h1 {
   font-size: 4rem;
+}
+
+@media screen and (max-width: 700px) {
+  #title h1 {
+    font-size: 35px;
+  }
+  #title h2 {
+    font-size: 20px;
+  }
+  #title h3 {
+    font-size: 15px;
+  }
 }
 
 /* CREATER DESIGN */

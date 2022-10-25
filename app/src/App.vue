@@ -1,10 +1,17 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view id="view" />
   </div>
 </template>
 
 <style>
+.container {
+  padding: 0 2rem;
+  height: 100%;
+}
+</style>
+
+<style scoped>
 #app {
   font-family: "Nico Moji";
   -webkit-font-smoothing: antialiased;
@@ -21,9 +28,7 @@
 
   position: relative;
 }
-
-.container {
-  padding: 0 2rem;
-  height: 100%;
+#view {
+  padding-bottom: 4vh;
 }
 </style>

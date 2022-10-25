@@ -1,10 +1,11 @@
 <template>
     <div>
+      <title-anime />
       <stamp-qr id="qr" class="qr" :class="{'qr-open': isQR}" @close="onQR" />
       <main>
           <router-view/>
       </main>
-      <div @click="onQR" class="menu" :isQR="isQR">
+      <div @click="onQR" class="menu" :isQRProp="isQR">
           <img src="@/assets/QR.png" />
       </div>
     </div>
@@ -12,11 +13,13 @@
 
 <script>
 import StampQR from '@/components/StampQR.vue'
+import TitleAnime from '@/components/TitleAnime.vue'
 
 export default {
     name: "UserLayout",
     components: {
-      'stamp-qr': StampQR
+      'stamp-qr': StampQR,
+      'title-anime': TitleAnime
     },
     data() {
       return {
@@ -50,7 +53,7 @@ main::-webkit-scrollbar-thumb {
   width: 4rem;
   height: 4rem;
   position: absolute;
-  bottom: 1rem;
+  bottom: 4.5rem;
   right: 1rem;
 
   border: solid 5px #42b983;
