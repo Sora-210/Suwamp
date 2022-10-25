@@ -41,13 +41,16 @@ export default {
     props: [
         'isQRProp'
     ],
-    data(props) {
+    data() {
         return {
             result: '',
-            isQR: props.isQRProp,
         }
     },
-    
+    computed: {
+        isQR: function() {
+            return this.isQRProp;
+        }
+    },
     methods: {
         async onInit(promise) {
             try {
@@ -70,8 +73,8 @@ export default {
                 }
             }
         },
-
         onDecode(result) {
+            // console.log(this.isQR)
             if (this.isQR) {
                 this.result = result;
             }
