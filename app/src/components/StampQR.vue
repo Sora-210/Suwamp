@@ -30,6 +30,9 @@
 <script>
 export default {
     name: 'StampQR',
+    props: [
+        'isQR'
+    ],
     data() {
         return {
             result: ''
@@ -60,7 +63,9 @@ export default {
         },
 
         onDecode(result) {
-            this.result = result;
+            if (this.isQR) {
+                this.result = result;
+            }
         },
 
         

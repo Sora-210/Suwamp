@@ -4,7 +4,7 @@
       <main>
           <router-view/>
       </main>
-      <div @click="onQR" class="menu">
+      <div @click="onQR" class="menu" :isQR="isQR">
           <img src="@/assets/QR.png" />
       </div>
     </div>
