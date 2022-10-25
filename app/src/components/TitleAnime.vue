@@ -21,7 +21,7 @@ export default {
     top: 0;
     right: 0;
     background-color: rgb(66, 184, 131);
-    animation: backgroundAnime 0.7s 1.5s;
+    animation: backgroundAnime 1s 1.5s;
     animation-fill-mode: forwards;
     z-index: 100000;
     display: flex;
@@ -57,10 +57,12 @@ export default {
     0% {
         top: 0;
         right: 0;
+        transform: rotate(0deg);
     }
     100% {
         top: -100vh;
         right: -100vh;
+        transform: rotate(90deg);
     }
 }
 @keyframes TitleAnime {
