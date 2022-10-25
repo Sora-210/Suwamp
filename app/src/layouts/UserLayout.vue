@@ -1,11 +1,11 @@
 <template>
     <div>
-      <title-anime />
-      <stamp-qr id="qr" class="qr" :class="{'qr-open': isQR}" @close="onQR" />
+      <title-anime v-if="false" />
+      <stamp-qr id="qr" class="qr" :class="{'qr-open': isQR}" @close="onQR" :isQRProp="isQR" />
       <main>
           <router-view/>
       </main>
-      <div @click="onQR" class="menu" :isQRProp="isQR">
+      <div @click="onQR" class="menu">
           <img src="@/assets/QR.png" />
       </div>
     </div>
@@ -23,14 +23,16 @@ export default {
     },
     data() {
       return {
-        isQR: false
+        isQR: false,
+        isVisited: false
       }
     },
     methods: {
       onQR: function() {
         this.isQR = !this.isQR;
       }
-    }
+    },
+  
 }
 </script>
 

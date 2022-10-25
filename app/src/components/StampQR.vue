@@ -5,10 +5,15 @@
                 <span>スタンプを探して</span><span>カメラで読み取ろう!</span>
             </h1>
             <qrcode-stream class="camera" @decode="onDecode" @init="onInit" />
-            <span @click="$emit('close')">カメラを閉じる</span>
+            <a @click="onDecode('test')" style="cursor: pointer;">
+                DEBUG
+            </a>
+        </div>
+        <div @click="$emit('close')" class="close-btn">
+          <img src="@/assets/cross.png" />
         </div>
 
-        <div id="result-overlay" v-if="result">
+        <div id="result-overlay" :class="{'open': result}">
             <div id="result">
                 <h1>
                     スタンプを押したよ!
@@ -16,29 +21,33 @@
                 <div id="result-stamp">
                     <img src="@/assets/logo.png" />
                 </div>
-                <span>
-                    スタンプを見に行く
-                </span>
-                <span>
-                    他のスタンプを探す
-                </span>
+                <div id="result-action">
+                    <div class="btn" @click="allClose">
+                        <span>スタンプを見に行く</span>
+                    </div>
+                    <div class="btn" @click="result = ''">
+                        <span>他のスタンプを読み取る</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
   
 <script>
+
 export default {
     name: 'StampQR',
     props: [
-        'isQR'
+        'isQRProp'
     ],
-    data() {
+    data(props) {
         return {
-            result: ''
+            result: '',
+            isQR: props.isQRProp,
         }
     },
-
+    
     methods: {
         async onInit(promise) {
             try {
@@ -66,6 +75,10 @@ export default {
             if (this.isQR) {
                 this.result = result;
             }
+        },
+        async allClose() {
+            this.$emit('close');
+            this.result = ''
         },
 
         
@@ -111,11 +124,17 @@ export default {
     background-color: rgba(99, 99, 99, 0.5);
     position: absolute;
     top: 0;
-    right: 0;
+    right: -100%;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    transition: all ease 0.5s;
+}
+#result-overlay.open {
+    right: 0;
+    transition: all ease 0.5s;
 }
 #result {
     background-color: #fff;
@@ -128,8 +147,80 @@ export default {
 #result-stamp img{
     width: 30%;
     border-radius: 50%;
-    border: solid 2px rgb(2, 131, 35);
-    transform: rotate(-25deg);
+    border: solid 4px rgb(2, 131, 35);
+    opacity: 0;
+    transition: opacity ease 0.7s;
+}
+#result-overlay.open #result-stamp img {
+    animation: pushAnime 0.4s 0.7s;
+    animation-fill-mode: forwards;
 }
 
+@keyframes pushAnime {
+    0% {
+        transform: rotate(0deg) scale(2);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(-25deg) scale(1);
+        opacity: 1;
+    }
+}
+
+
+.close-btn {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  bottom: 4.5rem;
+  right: 1rem;
+
+  border: solid 5px #b94242;
+  border-radius: 15px;
+  transition: all ease 0.7s;
+  cursor: pointer;
+}
+
+.close-btn img {
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+    position: relative;
+    padding: 7px;
+    margin: 5px;
+    width: 50%;
+    cursor: pointer;
+    color: rgb(106, 209, 156);
+    border: solid 2px rgb(106, 209, 156);
+    border-radius: 50px;
+    transition: color ease 0.2s;
+}
+.btn::after {
+    content: '\025b6';
+    position: absolute;
+    right: 5%;
+    color: rgb(106, 209, 156);
+    transition: color ease 0.2s;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: rgb(106, 209, 156);
+    transition: color ease 0.2s;
+}
+.btn:hover::after {
+    color: rgb(255, 255, 255);
+    transition: color ease 0.2s;
+}
+
+#result-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 </style>
