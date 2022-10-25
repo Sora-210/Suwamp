@@ -1,6 +1,6 @@
 <template>
     <div>
-      <title-anime v-if="false" />
+      <title-anime />
       <stamp-qr id="qr" class="qr" :class="{'qr-open': isQR}" @close="onQR" :isQRProp="isQR" />
       <main>
           <router-view/>

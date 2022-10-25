@@ -34,10 +34,16 @@ export default {
     animation: TitleAnime 0.5s;
     animation-fill-mode: forwards;
     z-index: 110000;
+    font-family: "Nico Moji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 #subtitle {
     position: relative;
     z-index: 101000;
+    font-family: "Nico Moji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 #subtitle::after {
     content: '';

@@ -55,6 +55,14 @@ export default {
 }
 #title h1 {
   font-size: 4rem;
+  font-family: "Nico Moji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#title h2 {
+  font-family: "Nico Moji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @media screen and (max-width: 700px) {

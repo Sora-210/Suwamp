@@ -110,6 +110,9 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    font-family: "Nico Moji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 .camera {
     padding-top: 3vh;
