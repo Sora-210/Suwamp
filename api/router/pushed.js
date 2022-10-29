@@ -31,11 +31,13 @@ router.post('/:stampId', (req, res) => {
 
         //Check Stamp
         db.query(createQuery(
-            'SELECT COUNT(*) AS n FROM Stamps ',
-            `WHERE uuid = "${req.params.stampId}";`
+            'SELECT id, Name FROM Stamps ',
+            `WHERE uuid = "${req.params.stampId}" `,
+            'LIMIT 1;'
         ), (err, rows) => {
             if (err) throw err;
-            if (rows[0].n === 1) {
+            if (rows.length === 1) {
+                const name = rows[0].Name
                 //Check Pushed
                 db.query(createQuery(
                     'SELECT COUNT(*) AS n FROM Pushed ',
@@ -54,7 +56,8 @@ router.post('/:stampId', (req, res) => {
                             if (err) throw err;
                             res.status(201).json({
                                 "status": "Success",
-                                "message": "This Stamp was Pushed!"
+                                "message": "This Stamp was Pushed!",
+                                "Name": name
                             })
                         })
                     } else {
