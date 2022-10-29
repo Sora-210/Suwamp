@@ -15,6 +15,9 @@
                 <h1>
                     スタンプを押したよ!
                 </h1>
+                <h2>
+                    「{{ name }}」
+                </h2>
                 <div id="result-stamp">
                     <img :src="`/suwamp/stamps/${this.imgName}.png`" />
                 </div>
@@ -43,6 +46,7 @@ export default {
     data() {
         return {
             result: '',
+            name: '',
             imgName: '',
         }
     },
@@ -82,7 +86,7 @@ export default {
                             'Auth': this.$store.getters.getLoginHash,
                         }
                     })).data
-                    console.log(d)
+                    this.name = d.Name;
                     this.imgName = d.Name;
                     this.result = result;
                 } catch(e) {
@@ -239,5 +243,9 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+h2 {
+    margin: 10px 0;
 }
 </style>
