@@ -1,7 +1,9 @@
 <template>
     <div>
       <title-anime />
-      <user-resister v-if="$store.getters.getLoginStatus"/>
+      <transition name="resist">
+        <user-resister v-if="$store.getters.getLoginStatus"/>
+      </transition>
       <stamp-qr id="qr" class="qr" :class="{'qr-open': isQR}" @close="onQR" :isQRProp="isQR" />
       <main>
           <router-view/>
@@ -84,5 +86,12 @@ main::-webkit-scrollbar-thumb {
 .qr-open {
   top: 0;
   transition: all ease 0.5s;
+}
+
+.resist-enter-active, .resist-leave-active {
+  transition: opacity .5s;
+}
+.resist-enter, .resist-leave-to {
+  opacity: 0;
 }
 </style>

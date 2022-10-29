@@ -16,15 +16,20 @@
                 </label>
                 <input type="password" v-model="password">
             </div>
-            <div class="btn" @click="onResistory">
+            <div class="btn" v-if="mode" @click="onResistory">
                 <span>
                     登録
                 </span>
             </div>
-            <p v-if="mode" @click="mode = !mode">
+            <div class="btn" v-else @click="onResistory">
+                <span>
+                    ログイン
+                </span>
+            </div>
+            <p v-if="mode" @click="changeMode">
                 ログインはこちら
             </p>
-            <p v-else @click="mode = !mode">
+            <p v-else @click="changeMode">
                 登録はこちら
             </p>
         </div>
@@ -73,10 +78,12 @@ export default {
                         }
                     }
                 }
-                
             } else {
                 this.error = '名前とパスワードを入力してね';
             }
+        },
+        changeMode() {
+            this.mode = !this.mode
         }
     }
 }
@@ -103,6 +110,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 85%;
 }
 
 #title {
@@ -118,7 +126,6 @@ export default {
     color: red;
     margin: 15px 0;
 }
-
 
 .form {
     width: 90%;
@@ -175,5 +182,12 @@ p {
 }
 p:hover {
     color: blue;
+}
+
+.mode-enter-active, .mode-leave-active {
+  transition: opacity .5s;
+}
+.mode-enter, .mode-leave-to {
+  opacity: 0;
 }
 </style>
