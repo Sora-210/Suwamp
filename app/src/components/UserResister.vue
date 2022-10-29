@@ -14,7 +14,7 @@
                 <label>
                     Password
                 </label>
-                <input type="text" v-model="password">
+                <input type="password" v-model="password">
             </div>
             <div class="btn" @click="onResistory">
                 <span>
@@ -50,11 +50,11 @@ export default {
             if (this.name !== '' && this.password !== '') {
                 if (this.mode) {
                     try {
-                        const r = await axios.post('https://f2022.suwageeks.org/suwamp/api/users', {
+                        const r = (await axios.post('https://f2022.suwageeks.org/suwamp/api/users', {
                             name: this.name,
                             password: this.password
-                        })
-                        this.$store.commit('setLoginHash', r.loginHash)
+                        })).data[0]
+                        this.$store.commit('setLoginHash', r.LoginHash)
                     } catch (e) {
                         if (e.response.status === 403) {
                             this.error = 'その名前は既に登録されてるよ';
@@ -62,11 +62,11 @@ export default {
                     }
                 } else {
                     try {
-                        const r = await axios.post('https://f2022.suwageeks.org/suwamp/api/login', {
+                        const r = (await axios.post('https://f2022.suwageeks.org/suwamp/api/login', {
                             name: this.name,
                             password: this.password
-                        })
-                        this.$store.commit('setLoginHash', r.loginHash)
+                        })).data
+                        this.$store.commit('setLoginHash', r.LoginHash)
                     } catch (e) {
                         if (e.response.status === 403) {
                             this.error = '名前かパスワードが間違っているよ';
