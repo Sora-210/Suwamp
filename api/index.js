@@ -9,12 +9,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use('/stamps', require('./router/stamps'));
+
 app.all('*', (req, res) => {
     res.status(404).json({
         'status': 'Error',
         'message': 'Not Found'
     })
-})
+});
 //#########################################
 app.listen(PORT, () => {
     console.log('Server Start!');
