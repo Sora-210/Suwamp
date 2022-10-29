@@ -5,9 +5,6 @@
                 <span>スタンプを探して</span><span>カメラで読み取ろう!</span>
             </h1>
             <qrcode-stream class="camera" @decode="onDecode" @init="onInit" />
-            <a @click="onDecode('test')" style="cursor: pointer;">
-                DEBUG
-            </a>
         </div>
         <div @click="$emit('close')" class="close-btn">
           <img src="@/assets/cross.png" />
@@ -19,7 +16,7 @@
                     スタンプを押したよ!
                 </h1>
                 <div id="result-stamp">
-                    <img src="@/assets/logo.png" />
+                    <img :src="`/suwamp/stamps/${this.imgName}.png`" />
                 </div>
                 <div id="result-action">
                     <div class="btn" @click="allClose">
@@ -35,6 +32,8 @@
 </template>
   
 <script>
+import axios from 'axios';
+
 
 export default {
     name: 'StampQR',
@@ -44,6 +43,7 @@ export default {
     data() {
         return {
             result: '',
+            imgName: '',
         }
     },
     computed: {
@@ -73,10 +73,21 @@ export default {
                 }
             }
         },
-        onDecode(result) {
-            // console.log(this.isQR)
+        async onDecode(result) {
             if (this.isQR) {
-                this.result = result;
+                try {
+                    console.log(this.$store.getters.getLoginHash)
+                    const d = (await axios.post('https://f2022.suwageeks.org/suwamp/api/pushed/' + result, {},{
+                        headers: {
+                            'Auth': this.$store.getters.getLoginHash,
+                        }
+                    })).data
+                    console.log(d)
+                    this.imgName = d.Name;
+                    this.result = result;
+                } catch(e) {
+                    console.log(e);
+                }
             }
         },
         async allClose() {

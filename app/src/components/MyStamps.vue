@@ -1,46 +1,54 @@
 <template>
     <div class="container">
         <h3>
-            My Stamps
+            Stamp List
         </h3>
         <div class="stamp-list">
-            <div class="stamp">
-                <img src="@/assets/logo.png" />
+            <div class="stamp" v-for="stamp in stamps" :key="stamp.id">
+                <img :src="`/suwamp/stamps/${stamp.Name}.png`" />
                 <h5>
-                    SuwaGeeksブース
+                    {{ stamp.Name }}
                 </h5>
-            </div>
-            <div class="stamp">
-                <img src="@/assets/logo.png" />
-                <h5>
-                    SuwaGeeksブース
-                </h5>
-            </div>
-            <div class="stamp">
-                <img src="@/assets/logo.png" />
-                <h5>
-                    SuwaGeeksブース
-                </h5>
-            </div>
-            <div class="stamp">
-                <img src="@/assets/logo.png" />
-                <h5>
-                    SuwaGeeksブース
-                </h5>
-            </div>
-            <div class="stamp">
-                <img src="@/assets/logo.png" />
-                <h5>
-                    SuwaGeeksブース
-                </h5>
+                <h6>
+                    {{ stamp.Location}}
+                </h6>
+                <p>{{ stamp.Pushed }}</p>
             </div>
         </div>
     </div>
 </template>
   
 <script>
+import axios from 'axios'
+
 export default {
     name: 'MyStamps',
+    data: () => {
+        return {
+            stamps: []
+        }
+    },
+    mounted: async function() {
+        try {
+            this.stamps = (await axios.get('https://f2022.suwageeks.org/suwamp/api/stamps/list', {
+                headers: {
+                    Auth: this.$store.getters.getLoginHash,
+                },
+                data: {}
+            })).data
+
+
+            const res = (await axios.get('https://f2022.suwageeks.org/suwamp/api/pushed/list', {
+                headers: {
+                    Auth: this.$store.getters.getLoginHash,
+                },
+                data: {}
+            })).data
+            console.log(res)
+        } catch(e) {
+            console.log(e);
+        }
+    }
 }
 </script>
   
