@@ -11,6 +11,7 @@ app.use(cors());
 //#########################################
 app.use('/health', require('./router/health'));
 app.use('/login', require('./router/Login'));
+app.use('/users', require('./router/Users'));
 app.use('/pushed', require('./router/pushed'));
 //#########################################
 app.all('*', (req, res) => {

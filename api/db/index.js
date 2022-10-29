@@ -20,7 +20,8 @@ db.connect(function(err) {
             if (rows.length === 0) {
                 const query = createQuery(
                     `CREATE TABLE Stamps (`,
-                    `id VARCHAR(64) DEFAULT UUID() NOT NULL PRIMARY KEY,`,
+                    `id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,`,
+                    `uuid VARCHAR(64) DEFAULT UUID() NOT NULL,`,
                     `Name VARCHAR(32) NOT NULL,`,
                     `Location VARCHAR(32) NOT NULL,`,
                     `isAvailable BOOL DEFAULT TRUE NOT NULL,`,
@@ -42,12 +43,33 @@ db.connect(function(err) {
                     `id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,`,
                     `Name VARCHAR(32) NOT NULL,`,
                     `Password VARCHAR(64) NOT NULL,`,
+                    `LoginHash VARCHAR(64) DEFAULT NULL,`,
                     `atCreated DATETIME DEFAULT now() NOT NULL,`,
                     `index(id))`
                 );
                 db.query(query, (err, rows) => {
                     if (err) throw err;
                     console.log("Create Table 'Users'.");
+                })
+            }
+        })
+
+        db.query('SHOW TABLES LIKE "Pushed";', (err, rows) => {
+            if (err) throw err;
+            if (rows.length === 0) {
+                const query = createQuery(
+                    `CREATE TABLE Pushed (`,
+                    `id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,`,
+                    `userId INTEGER NOT NULL,`,
+                    `stampId INTEGER NOT NULL,`,
+                    `atCreated DATETIME DEFAULT now() NOT NULL,`,
+                    `FOREIGN KEY (userId) REFERENCES Users(id),`,
+                    `FOREIGN KEY (stampId) REFERENCES Stamps(id),`,
+                    `index(id))`
+                );
+                db.query(query, (err, rows) => {
+                    if (err) throw err;
+                    console.log("Create Table 'Pushed'.");
                 })
             }
         })
