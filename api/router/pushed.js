@@ -10,11 +10,25 @@ router.get('/list', (req, res) => {
         if (!req.headers['auth']) throw new Error('BodyError:auth');
 
         db.query(createQuery(
-            'SELECT * FROM Pushed INNER JOIN Stamps ON Pushed.stampId = Stamps.id ',
-            `WHERE Pushed.userId = (SELECT id FROM Users WHERE LoginHash = "${req.headers['auth']}" LIMIT 1);`
-        ), (err, rows) => {
+            'SELECT * FROM Stamps ',
+            'WHERE id IN ',
+            '(SELECT stampId as id FROM Pushed ',
+            `WHERE userId = (SELECT id FROM Users WHERE LoginHash = "${req.body['auth']}" LIMIT 1));`
+        ), (err, push) => {
             if (err) throw err;
-            res.status(200).json(rows);
+            db.query(createQuery(
+                'SELECT * FROM Stamps ',
+                'WHERE id NOT IN ',
+                '(SELECT stampId as id FROM Pushed ',
+                `WHERE userId = (SELECT id FROM Users WHERE LoginHash = "${req.body['auth']}" LIMIT 1));`
+            ), (err, noPush) => {
+                if (err) throw err;
+
+                res.status(200).json({
+                    push: push,
+                    noPush: noPush
+                })
+            })
         })
     } catch(e) {
         res.status(500).json({

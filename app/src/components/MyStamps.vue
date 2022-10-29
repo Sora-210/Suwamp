@@ -15,6 +15,18 @@
                 <p>{{ stamp.Pushed }}</p>
             </div>
         </div>
+        <div class="stamp-list">
+            <div class="stamp no-push" v-for="stamp in noPushStamps" :key="stamp.id">
+                <img :src="`/suwamp/stamps/${stamp.Name}.png`" />
+                <h5>
+                    {{ stamp.Name }}
+                </h5>
+                <h6>
+                    {{ stamp.Location}}
+                </h6>
+                <p>{{ stamp.Pushed }}</p>
+            </div>
+        </div>
     </div>
 </template>
   
@@ -25,26 +37,20 @@ export default {
     name: 'MyStamps',
     data: () => {
         return {
-            stamps: []
+            stamps: [],
+            noPushStamps: []
         }
     },
     mounted: async function() {
         try {
-            this.stamps = (await axios.get('https://f2022.suwageeks.org/suwamp/api/stamps/list', {
-                headers: {
-                    Auth: this.$store.getters.getLoginHash,
-                },
-                data: {}
-            })).data
-
-
             const res = (await axios.get('https://f2022.suwageeks.org/suwamp/api/pushed/list', {
                 headers: {
-                    Auth: this.$store.getters.getLoginHash,
+                    auth: this.$store.getters.getLoginHash,
                 },
                 data: {}
             })).data
-            console.log(res)
+            this.stamps = res.push
+            this.noPushStamps = res.noPush
         } catch(e) {
             console.log(e);
         }
@@ -80,5 +86,9 @@ img{
     border-radius: 50%;
     border: solid 2px rgb(2, 131, 35);
     transform: rotate(-25deg);
+}
+
+.no-push img {
+    filter: grayscale(100%);
 }
 </style>
