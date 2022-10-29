@@ -1,6 +1,7 @@
 <template>
     <div>
       <title-anime />
+      <user-resister v-if="$store.getters.getLoginStatus"/>
       <stamp-qr id="qr" class="qr" :class="{'qr-open': isQR}" @close="onQR" :isQRProp="isQR" />
       <main>
           <router-view/>
@@ -14,12 +15,15 @@
 <script>
 import StampQR from '@/components/StampQR.vue'
 import TitleAnime from '@/components/TitleAnime.vue'
+import UserResister from '@/components/UserResister.vue'
+
 
 export default {
     name: "UserLayout",
     components: {
       'stamp-qr': StampQR,
-      'title-anime': TitleAnime
+      'title-anime': TitleAnime,
+      'user-resister': UserResister
     },
     data() {
       return {
@@ -30,7 +34,7 @@ export default {
     methods: {
       onQR: function() {
         this.isQR = !this.isQR;
-      }
+      },
     },
   
 }
