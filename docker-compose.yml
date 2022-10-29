@@ -26,3 +26,5 @@ services:
     image: mariadb:10.9.3
     env_file:
       - ./config/db.env
+    volumes:
+      - ./volume:/var/lib/mysql
