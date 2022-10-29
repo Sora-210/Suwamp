@@ -11,6 +11,17 @@ services:
       - ./config/db.env
     environment:
       BASE_URL: /suwamp/
+  back:
+    build: ./api/
+    container_name: 'f2022-suwamp-back'
+    restart: always
+    tty: true
+    env_file:
+      - ./config/db.env
+    environment:
+      BASE_URL: /suwamp/
+    ports:
+      - 5112:3333
   db:
     image: mariadb:10.9.3
     env_file:

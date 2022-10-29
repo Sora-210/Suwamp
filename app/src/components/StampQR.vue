@@ -26,7 +26,7 @@
                         <span>スタンプを見に行く</span>
                     </div>
                     <div class="btn" @click="result = ''">
-                        <span>他のスタンプを読み取る</span>
+                        <span>続けて読み取る</span>
                     </div>
                 </div>
             </div>
@@ -209,7 +209,7 @@ export default {
 .btn::after {
     content: '\025b6';
     position: absolute;
-    right: 5%;
+    right: 4%;
     color: rgb(106, 209, 156);
     transition: color ease 0.2s;
 }
