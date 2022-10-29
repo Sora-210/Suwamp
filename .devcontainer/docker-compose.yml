@@ -16,4 +16,4 @@ services:
     env_file:
       - ../config/db.env
     volumes:
-      - ./volume:/var/lib/mysql
+      - ../volume:/var/lib/mysql
