@@ -33,6 +33,24 @@ db.connect(function(err) {
                 })
             }
         })
+
+        db.query('SHOW TABLES LIKE "Users";', (err, rows) => {
+            if (err) throw err;
+            if (rows.length === 0) {
+                const query = createQuery(
+                    `CREATE TABLE Users (`,
+                    `id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,`,
+                    `Name VARCHAR(32) NOT NULL,`,
+                    `Password VARCHAR(64) NOT NULL,`,
+                    `atCreated DATETIME DEFAULT now() NOT NULL,`,
+                    `index(id))`
+                );
+                db.query(query, (err, rows) => {
+                    if (err) throw err;
+                    console.log("Create Table 'Users'.");
+                })
+            }
+        })
     } catch (e) {
         console.log(e);
     } 
