@@ -8,12 +8,11 @@ const cors = require('cors');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-
+//#########################################
 app.use('/health', require('./router/health'));
 app.use('/login', require('./router/Login'));
-
-
-
+app.use('/pushed', require('./router/pushed'));
+//#########################################
 app.all('*', (req, res) => {
     res.status(404).json({
         'status': 'Error',
