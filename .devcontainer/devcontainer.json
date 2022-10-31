@@ -12,7 +12,8 @@
       "dbaeumer.vscode-eslint",
       "mhutchie.git-graph",
       "ms-vscode.vscode-typescript-next",
-      "hollowtree.vue-snippets"
+      "hollowtree.vue-snippets",
+      "Vue.volar"
 	],
 	"remoteUser": "root"
 }

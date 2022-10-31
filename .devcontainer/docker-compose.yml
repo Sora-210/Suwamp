@@ -6,6 +6,8 @@ services:
     working_dir: /work
     env_file:
       - ../config/db.env
+    environment:
+      BASE_URL: /
     volumes:
       - ../:/work:cached
       - ~/.ssh:/root/.ssh
@@ -13,4 +15,5 @@ services:
     image: mariadb:10.9.3
     env_file:
       - ../config/db.env
-
+    volumes:
+      - ../volume:/var/lib/mysql
